@@ -1,4 +1,4 @@
-# Crawler- find the answer
+# Crawler - find the answer
 
 ## Goal
 The goal of this challenge is find the answer behind the click  of a button, here: http://applicant-test.us-east-1.elasticbeanstalk.com/ . To do that we need get the token in the requested page and decode it following the script "adpagespeed.js".
