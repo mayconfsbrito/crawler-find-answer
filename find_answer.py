@@ -25,7 +25,7 @@ def decode_token(token):
     return decoded_token
 
 
-def find_answer(url='http://applicant-test.us-east-1.elasticbeanstalk.com/'):
+def find_answer(url, headers):
     """Method to get the answer.
 
     Args:
@@ -39,8 +39,8 @@ def find_answer(url='http://applicant-test.us-east-1.elasticbeanstalk.com/'):
         token = get_token(r.content.decode('utf-8'))
         token = decode_token(token)
         data = {"token": token}
-        response = session.post(url, data=data)
-        return response.content.decode('utf-8'), response.status_code
+        response = session.post(url, data=data, headers=headers)
+        return response.html.xpath('span/text()', first=True)
 
 
 def get_token(content):
@@ -56,6 +56,14 @@ def get_token(content):
     return token
 
 if __name__ == '__main__':
-    answer, status_code = find_answer()
-    print(f'Status code: {status_code}')
+    url = 'http://applicant-test.us-east-1.elasticbeanstalk.com/'
+    headers = {
+        'Host': 'applicant-test.us-east-1.elasticbeanstalk.com',
+        'Origin': 'http://applicant-test.us-east-1.elasticbeanstalk.com',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                      'AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/71.0.3578.98 Safari/537.36',
+        'Referer': 'http://applicant-test.us-east-1.elasticbeanstalk.com/',
+    }
+    answer = find_answer(url, headers)
     print(f'Answer: {answer}')
