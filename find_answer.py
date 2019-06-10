@@ -30,6 +30,7 @@ def find_answer(url, headers):
 
     Args:
         url (str): url of the site with the answer.
+        headers (dict): headers of the post.
     Returns:
         answer (str): answer found in the site.
         status_code (int): number of the status code of the request.
